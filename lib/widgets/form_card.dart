@@ -19,7 +19,7 @@ class FormCard extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Padding(
+              child: const Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 10,

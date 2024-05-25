@@ -4,20 +4,21 @@ import '../models/form_model.dart';
 import 'form_field_widget.dart';
 
 class FieldsList extends StatefulWidget {
-  const FieldsList({super.key});
+  final TextEditingController employeeNameController;
+  const FieldsList({super.key, required this.employeeNameController});
 
   @override
   State<FieldsList> createState() => _FieldsListState();
 }
 
 class _FieldsListState extends State<FieldsList> {
-  var employeeNameController = TextEditingController();
+  // var employeeNameController = TextEditingController();
   var genderController = TextEditingController();
   var ageController = TextEditingController();
 
   @override
   void dispose() {
-    employeeNameController.dispose();
+    widget.employeeNameController.dispose();
     genderController.dispose();
     ageController.dispose();
     super.dispose();
@@ -31,7 +32,7 @@ class _FieldsListState extends State<FieldsList> {
           children: [
             FormFieldWidget(
               formModel: FormModel(
-                controller: employeeNameController,
+                controller: widget.employeeNameController,
                 inputDecoration: textFieldDecoration(
                   context,
                   icon: Icons.person,

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../widgets/fields_list.dart';
 
 class FormWidget extends StatefulWidget {
-  const FormWidget({super.key});
+  const FormWidget({
+    super.key,
+  });
 
   @override
   State<FormWidget> createState() => _FormWidgetState();
@@ -22,8 +24,10 @@ class _FormWidgetState extends State<FormWidget> {
       key: formKey,
       child: Column(
         children: [
-          const Expanded(
-            child: FieldsList(),
+          Expanded(
+            child: FieldsList(
+              employeeNameController: employeeNameController,
+            ),
           ),
           Align(
             alignment: Alignment.bottomRight,
@@ -43,7 +47,9 @@ class _FormWidgetState extends State<FormWidget> {
                   OutlinedButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        employeeName = employeeNameController.text;
+                        employeeName = FieldsList(
+                          employeeNameController: employeeNameController,
+                        ).employeeNameController.text;
                         setState(() {});
                       }
                     },
