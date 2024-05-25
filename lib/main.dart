@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'pages/home_page.dart';
+import 'pages/employee_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,12 +12,38 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Task 10',
+      debugShowCheckedModeBanner: false,
+      title: 'Form',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepOrange,
+          surface: Colors.deepOrange,
+        ),
+        textTheme: const TextTheme(
+          bodyMedium: TextStyle(
+            fontFamily: 'DarkerGrotesque',
+            fontSize: 20,
+          ),
+          labelMedium: TextStyle(
+            fontFamily: 'DarkerGrotesque',
+            fontSize: 18,
+          ),
+          titleMedium: TextStyle(
+            fontFamily: 'Righteous',
+            fontSize: 35,
+            color: Colors.white,
+            shadows: [
+              BoxShadow(
+                offset: Offset(4, 2),
+              )
+            ],
+          ),
+        ),
         useMaterial3: true,
       ),
-      home: const HomePage(title: 'Task 10'),
+      home: const EmployeePage(
+        title: 'Employee List',
+      ),
     );
   }
 }
