@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../models/employee.dart';
 import '../widgets/form_widget.dart';
 
 class FormCard extends StatelessWidget {
-  const FormCard({super.key});
+  final List<Employee> employeeList;
+  final String title;
+
+  const FormCard({super.key, required this.title, required this.employeeList});
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +23,15 @@ class FormCard extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 10,
                 ),
-                child: FormWidget(),
+                child: FormWidget(
+                  title: title,
+                  employeeList: employeeList,
+                ),
               ),
             ),
           ),

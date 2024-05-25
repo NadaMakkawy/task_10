@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:task_10_test/pages/employee_page.dart';
 
+import '../models/employee.dart';
 import '../widgets/fields_list.dart';
 
 class FormWidget extends StatefulWidget {
+  final String title;
+  final List<Employee> employeeList;
+
   const FormWidget({
     super.key,
+    required this.employeeList,
+    required this.title,
   });
 
   @override
@@ -17,9 +24,17 @@ class _FormWidgetState extends State<FormWidget> {
   String? employeeName;
 
   var employeeNameController = TextEditingController();
+  var genderController = TextEditingController();
+  var ageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    FieldsList fieldsList = FieldsList(
+      employeeNameController: employeeNameController,
+      genderController: genderController,
+      ageController: ageController,
+    );
+
     return Form(
       key: formKey,
       child: Column(
@@ -27,6 +42,8 @@ class _FormWidgetState extends State<FormWidget> {
           Expanded(
             child: FieldsList(
               employeeNameController: employeeNameController,
+              genderController: genderController,
+              ageController: ageController,
             ),
           ),
           Align(
@@ -47,10 +64,30 @@ class _FormWidgetState extends State<FormWidget> {
                   OutlinedButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        employeeName = FieldsList(
-                          employeeNameController: employeeNameController,
-                        ).employeeNameController.text;
-                        setState(() {});
+                        employeeName = fieldsList.employeeNameController.text;
+                        if (formKey.currentState!.validate()) {
+                          var emp = Employee(
+                            name: fieldsList.employeeNameController.text,
+                            gender: fieldsList.genderController.text,
+                            age: int.parse(fieldsList.ageController.text),
+                          );
+
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => EmployeePage(
+                                title: widget.title,
+                                employeeList: [emp, ...widget.employeeList],
+                                // employeeList: newEmployees(
+                                //   fieldsList.employeeNameController.text,
+                                //   fieldsList.genderController.text,
+                                //   int.parse(fieldsList.ageController.text),
+                                // ),
+                              ),
+                            ),
+                            (route) => false,
+                          );
+                        }
                       }
                     },
                     style: OutlinedButton.styleFrom(
@@ -91,4 +128,26 @@ class _FormWidgetState extends State<FormWidget> {
       ),
     );
   }
+
+  // List<Employee> newEmployees(String name, String gender, int age) {
+  //   List<Employee> employeeList = widget.employeeList;
+  //   FieldsList fieldsList = FieldsList(
+  //     employeeNameController: employeeNameController,
+  //     genderController: genderController,
+  //     ageController: ageController,
+  //   );
+
+  //   final newEmployee = Employee(
+  //     name: fieldsList.employeeNameController.text,
+  //     gender: fieldsList.genderController.text,
+  //     age: int.parse(fieldsList.ageController.text),
+  //   );
+
+  //   setState(
+  //     () {
+  //       widget.employeeList.add(newEmployee);
+  //     },
+  //   );
+  //   return employeeList;
+  // }
 }

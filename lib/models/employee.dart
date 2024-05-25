@@ -1,11 +1,11 @@
 class Employee {
   final String name;
-  final int age;
   final String gender;
+  final int age;
 
   Employee({
     required this.name,
-    required this.age,
     required this.gender,
+    required this.age,
   });
 }

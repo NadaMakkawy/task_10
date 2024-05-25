@@ -41,8 +41,9 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const EmployeePage(
+      home: EmployeePage(
         title: 'Employee List',
+        employeeList: [],
       ),
     );
   }
