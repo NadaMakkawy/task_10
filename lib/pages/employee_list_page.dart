@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:task_10_playground/widgets/add_employee_dialog.dart';
 
+import '../widgets/add_employee_dialog.dart';
 import '../database/sql_helper.dart';
 import '../widgets/employee_data_table.dart';
 import 'edit_employee_page.dart';

@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 
-import 'pages/employee_page.dart';
+import 'database/sql_helper.dart';
+import 'pages/employee_list_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  var sqlHelper = SqlHelper();
+  sqlHelper.init().then((_) {
+    runApp(MyApp(sqlHelper: sqlHelper));
+  });
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final SqlHelper sqlHelper;
+
+  const MyApp({super.key, required this.sqlHelper});
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +22,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Form',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepOrange,
-          surface: Colors.deepOrange,
-        ),
+        // colorScheme: ColorScheme.fromSeed(
+        //   seedColor: Colors.deepOrange,
+        //   surface: Colors.deepOrange,
+        // ),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey),
         textTheme: const TextTheme(
           bodyMedium: TextStyle(
             fontFamily: 'DarkerGrotesque',
@@ -41,10 +49,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: EmployeePage(
-        title: 'Employee List',
-        employeeList: [],
-      ),
+      home: EmployeeListPage(sqlHelper: sqlHelper),
     );
   }
 }
