@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/add_employee_dialog.dart';
 import '../database/sql_helper.dart';
+import '../widgets/add_employee_button.dart';
+import '../widgets/add_employee_dialog.dart';
 import '../widgets/employee_data_table.dart';
 import 'edit_employee_page.dart';
 
@@ -191,20 +192,56 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                                 },
                               );
                             },
-                            child: const Column(
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('No Data'),
-                                Divider(
+                                const Text('No Data'),
+                                const Divider(
                                   indent: 100,
                                   endIndent: 100,
                                 ),
-                                Text('Add some Employees!'),
-                                Icon(
+                                const Text('Add some Employees!'),
+                                const Icon(
                                   Icons.arrow_drop_down_rounded,
                                   size: 40,
                                   color: Colors.white,
-                                )
+                                ),
+                                // FloatingActionButton(
+                                //   onPressed: () {
+                                //     showDialog(
+                                //       context: context,
+                                //       builder: (context) {
+                                //         return AddEmployeeDialog(
+                                //           formKey: _formKey,
+                                //           nameController: _nameController,
+                                //           genderController: _genderController,
+                                //           ageController: _ageController,
+                                //           onPressedFn: () {
+                                //             if (_formKey.currentState!
+                                //                 .validate()) {
+                                //               _addEmployee();
+                                //               _checkForEmployees();
+                                //             }
+                                //           },
+                                //         );
+                                //       },
+                                //     );
+                                //   },
+                                //   tooltip: 'Add Employee',
+                                //   child: const Icon(Icons.add),
+                                // ),
+                                AddEmployeeButton(
+                                  formKey: _formKey,
+                                  nameController: _nameController,
+                                  genderController: _genderController,
+                                  ageController: _ageController,
+                                  onPressedFn: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      _addEmployee();
+                                      _checkForEmployees();
+                                    }
+                                  },
+                                ),
                               ],
                             ),
                           ),
@@ -215,11 +252,11 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _hasEmployees
-                    ? ElevatedButton(
+            child: _hasEmployees
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(
                         onPressed: () {
                           showDialog(
                             context: context,
@@ -249,33 +286,22 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                           );
                         },
                         child: const Text('Delete All Employees'),
-                      )
-                    : const SizedBox(),
-                FloatingActionButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AddEmployeeDialog(
-                          formKey: _formKey,
-                          nameController: _nameController,
-                          genderController: _genderController,
-                          ageController: _ageController,
-                          onPressedFn: () {
-                            if (_formKey.currentState!.validate()) {
-                              _addEmployee();
-                              _checkForEmployees();
-                            }
-                          },
-                        );
-                      },
-                    );
-                  },
-                  tooltip: 'Add Employee',
-                  child: const Icon(Icons.add),
-                ),
-              ],
-            ),
+                      ),
+                      AddEmployeeButton(
+                        formKey: _formKey,
+                        nameController: _nameController,
+                        genderController: _genderController,
+                        ageController: _ageController,
+                        onPressedFn: () {
+                          if (_formKey.currentState!.validate()) {
+                            _addEmployee();
+                            _checkForEmployees();
+                          }
+                        },
+                      ),
+                    ],
+                  )
+                : const SizedBox(),
           ),
         ],
       ),

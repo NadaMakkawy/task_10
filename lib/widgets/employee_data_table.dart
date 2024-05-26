@@ -39,56 +39,60 @@ class EmployeeDataTable extends StatelessWidget {
         ),
         const DataColumn(label: Text('Action')),
       ],
-      rows: employees.map((employee) {
-        return DataRow(cells: [
-          DataCell(Text(employee['id'].toString())),
-          DataCell(Text(employee['name'])),
-          DataCell(Text(employee['gender'])),
-          DataCell(Text(employee['age'].toString())),
-          DataCell(
-            Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.edit),
-                  onPressed: () {
-                    editEmployee(context, employee);
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text('Delete Employee?'),
-                          content: Text(
-                              'Are you sure you want to delete "${employee['name']}"?'),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('Cancel'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                deleteEmployee(employee['id']);
-                              },
-                              child: const Text('Delete'),
-                            ),
-                          ],
+      rows: employees.map(
+        (employee) {
+          return DataRow(
+            cells: [
+              DataCell(Text(employee['id'].toString())),
+              DataCell(Text(employee['name'])),
+              DataCell(Text(employee['gender'])),
+              DataCell(Text(employee['age'].toString())),
+              DataCell(
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.edit),
+                      onPressed: () {
+                        editEmployee(context, employee);
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Delete Employee?'),
+                              content: Text(
+                                  'Are you sure you want to delete "${employee['name']}"?'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    deleteEmployee(employee['id']);
+                                  },
+                                  child: const Text('Delete'),
+                                ),
+                              ],
+                            );
+                          },
                         );
                       },
-                    );
-                  },
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        ]);
-      }).toList(),
+              ),
+            ],
+          );
+        },
+      ).toList(),
     );
   }
 }
